@@ -17,11 +17,7 @@ const Items = database.define('Items', {
     },
 });
 
-Items.associate = (models) => {
-    Items.belongsTo(models.Orders,{
-        foreignKey:'order_id', as: "order_id", 
-    })
-}
+
 
 Items.sync();
 

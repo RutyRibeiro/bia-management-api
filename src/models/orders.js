@@ -1,12 +1,14 @@
 const { DataTypes } = require("sequelize");
 const database = require("../db");
+const itemsModel = require("./items");
+const {v4} = require('uuid')
 
 const Orders = database.define("Orders", {
     order_id:{
         type: DataTypes.BIGINT,
-        autoIcrement: true,
-        allowNull: false,
         primaryKey: true,
+        allowNull:false,
+        autoIncrement:true,
     },
     order_totalAmount:{
         type: DataTypes.DECIMAL,
@@ -18,11 +20,10 @@ const Orders = database.define("Orders", {
     },
 });
 
-Orders.associate = (models) => {
-    Orders.hasMany(models.Items,{
-        foreignKey:'order_id', as: "order_id", 
-    })
-}
+
+Orders.hasMany(itemsModel,{
+    foreignKey:'order_id',  
+})
 
 Orders.sync();
 
